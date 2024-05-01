@@ -2,13 +2,13 @@ import ast
 import requests
 
 
-def movie_output(movie_name):
+def get_movie(movie_title):
     url_API_OMDB = 'http://www.omdbapi.com/'
     key_API_OMDB = 'ff80fae5'
     error_text = 'Нe нашёл такой фильм:( Вероятно, вы неправильно ввели название или такого фильма нет в базе.'
 
     try:
-        resp = requests.get(f'{url_API_OMDB}?apikey={key_API_OMDB}&t={movie_name}')
+        resp = requests.get(f'{url_API_OMDB}?apikey={key_API_OMDB}&t={movie_title}')
 
         if '"Error":"Movie not found!"' in resp.text:
             raise NameError("Неправильное название.")
@@ -26,5 +26,7 @@ def movie_output(movie_name):
 
 if __name__ == '__main__':
     while True:
-        movie_name = str(input('Введите название фильма: '))
-        movie_output(movie_name)
+        movie_title = str(input('Введите название фильма: '))
+        if movie_title=='':
+            break
+        get_movie(movie_title)
